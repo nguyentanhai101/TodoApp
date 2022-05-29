@@ -11,8 +11,7 @@ const Todo = memo(props =>{
         }, index)
     }
     return(
-            // className={'${isEditing ? 'editing' : ''} ${todo.isCompleted ? 'completed' : ''}'} >
-            <li className={isEditing ? 'editing' : '' & todo.isCompleted ? 'completed' : ''} >
+            <li className={`${isEditing ? 'editing' : ''} ${todo.isCompleted ? 'completed' : ''}`} >
             {!isEditing ?
                 <div className="view">
                     <input 

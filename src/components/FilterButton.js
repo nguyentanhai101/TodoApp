@@ -5,12 +5,10 @@ const FilterButton = memo(props =>{
     return (
         <li>
             <a
-
-                // href={link}
-                // href={'#/${link}'}
+                href={`#/${link}`}
                 className = {isActived ? 'selected' : ''}
-                //className={'${isActived ? selected : ''}'}
-                onClick={onClick}>
+                // className={'${isActived ? selected : ''}'}
+                onClick={onClick} >
                 {title}
             </a>
         </li>

@@ -3,7 +3,7 @@ import FilterButton from "./FilterButton";
 
 const Footer = memo(props =>{
     
-    const {status, setStateFilter, mumOfTodosLeft, mumOfTodos, clearCompleted } = props
+    const {status, setStateFilter, mumOfTodosLeft,  clearCompleted } = props
     const filterButtons = [{
         title: "All",
         isActived: status === 'ALL',
@@ -16,12 +16,13 @@ const Footer = memo(props =>{
         onClick: () => setStateFilter('ACTIVE'),
         link: 'active'
     },
-    {
-        title: "Completed",
-        isActived: status === 'COMPLETED',
-        onClick: () => setStateFilter('COMPLETED'),
-        link: 'completed'
-    }]
+    // {
+    //     title: "Completed",
+    //     isActived: status === 'COMPLETED',
+    //     onClick: () => setStateFilter('COMPLETED'),
+    //     link: 'completed'
+    // }
+]
     return (
         <footer className="footer">
             <span className="todo-count">
@@ -33,16 +34,15 @@ const Footer = memo(props =>{
             <ul className="filters">
                 {
                     filterButtons.map(btn => 
-                        // <li>{btn.isActived}</li>
                        < FilterButton 
-                            // key={'btn${btn.title}'}
-                            key={btn.title} 
+                            key={`btn${btn.title}`}
+                            // key={btn.title} 
                             {...btn} 
                        />
                     )
                 }
             </ul>
-            {mumOfTodos > mumOfTodosLeft && < button className="clear-completed" onClick={clearCompleted}>Clear completed</button>}
+            < button className="clear-completed" onClick={clearCompleted}>Clear completed</button>
         </footer>
     )
 })

@@ -9,39 +9,44 @@ import Footer from './components/Footer';
 import './App.css';
 import './css/Todo.css'
 
-const isNotCheckedAll = (todos = []) => todos.find(todo => !todo.isCompleted)
+const initData = [{
+  id: 1,
+  text: 'todo1',
+  isCompleted: true
+}, {
+  id: 2,
+  text: 'todo2',
+  isCompleted: false
+}]
+
+const isNotCheckedAll = (todos = []) => todos.find(todo => todo.isCompleted === false)
 const filtersByStatus = (todos = [], status = '', id = '') =>{
-  debugger
   switch (status) {
     case 'ACTIVE':
-      return todos.filter(todo => !todo.isCompleted)
+      return todos.filter(todo => todo.isCompleted === false)
     case 'COMPLETE':
-      return todos.filter(todo => todo.isCompleted)
+      return todos.filter(todo => todo.isCompleted === true)
     case 'REMOVE':
-      return todos.filter(todo => todo.id !==id)
+      return todos.filter(todo => todo.id !== id)
     default:
       return todos
   }
 }
 
 class App extends PureComponent {
-  state = {
-    todosList: [{
-      id: 1,
-      text: 'todo1',
-      isCompleted: true
-    },{
-      id: 2,
-      text: 'todo2',
-      isCompleted: false
-    }],
-    todoEditingId: '',
-    isNotCheckedAll: false,
-    status: 'ALL'
+  constructor(props) {
+    super(props);
+    this.state = {
+      todosList: initData,
+      todoEditingId: '',
+      isNotCheckedAll: false,
+      isCheckedAll: false,
+      status: 'ALL'
+    }
   }
   componentWillMount(){
     this.setState({
-      isNotCheckedAll: isNotCheckedAll(this.state.todosList)
+      isNotCheckedAll: isNotCheckedAll(this.state.todosList),
     })
   }
 
@@ -84,10 +89,9 @@ class App extends PureComponent {
   }
 
   setStateFilter = (status = '') => {
-    debugger
     const { todosList } = this.state
     this.setState({
-      todosList: filtersByStatus(todosList, status),
+      todosList: todosList,
       status
     })
     
@@ -127,7 +131,7 @@ class App extends PureComponent {
             removeTodo={this.removeTodo}
           />
           <Footer
-            setStateFilter = {this.setStateFilter}
+            setStateFilter ={this.setStateFilter}
             status={status}
             clearCompleted={this.clearCompleted}
             numOfTodos={todosList.length}
